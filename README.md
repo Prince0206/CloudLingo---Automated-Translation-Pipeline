@@ -19,6 +19,7 @@ Description: An automated translation pipeline using AWS S3, Lambda, and Amazon 
 🛠 Architecture Overview
 Code
 
+Code
 [User Upload]
 |
 v
@@ -61,6 +62,7 @@ v v
 
 📂 Project Structure
 
+Code
 .
 ├── infra.yaml # CloudFormation template
 ├── translate_lambda.py # Lambda handler
