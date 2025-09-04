@@ -9,8 +9,11 @@ Description: An automated translation pipeline using AWS S3, Lambda, and Amazon 
 📌 Features
 
 Serverless: Fully managed with AWS Lambda and S3 triggers.
+
 Multi-language: Supports any language pair supported by Amazon Translate.
+
 Automated: Upload → Translate → Output in seconds.
+
 Versioned & Managed: S3 versioning and lifecycle rules for cost optimization.
 
 🛠 Architecture Overview
@@ -43,7 +46,6 @@ v v
 🚀 Quick Start (Cheat Sheet)
 
 1. Deploy Infrastructure
-   bash
    aws cloudformation deploy \
     --stack-name cloudlingo \
     --template-file infra.yaml \
@@ -52,7 +54,6 @@ v v
     --region us-east-1
 
 2. Get Resource Names
-   bash
    aws cloudformation describe-stacks \
     --stack-name cloudlingo \
     --region us-east-1 \
@@ -60,7 +61,6 @@ v v
 
 📂 Project Structure
 
-Code
 .
 ├── infra.yaml # CloudFormation template
 ├── translate_lambda.py # Lambda handler
@@ -78,14 +78,13 @@ Code
    "sourceLanguageCode": "en",
    "targetLanguageCode": "fr",
    "texts": ["Hello, world!", "How are you today?"],
-   "metadata": {"requestId": "demo-001"}}
+   "metadata": {"requestId": "demo-001"}
+   }
 
 2. Run the script
-   bash
    python translate_local.py request_en_fr.json <RequestBucketName> <ResponseBucketName>
 
 3. Verify output
-   bash
    aws s3 ls s3://<ResponseBucketName>/translated/ --region us-east-1
    aws s3 cp s3://<ResponseBucketName>/translated/request_en_fr_to_fr.json . --region us-east-1
 
@@ -99,6 +98,7 @@ Code
 🛠 Debugging
 
 AWS Console → CloudWatch Logs → /aws/lambda/cloudlingo-translate
+
 Check for:
 Permission errors
 Wrong bucket names
@@ -106,12 +106,14 @@ Missing prefixes
 
 🧹 Cleanup
 
-bash
 aws s3 rm s3://<RequestBucketName> --recursive --region us-east-1
-aws s3 rm s3://<ResponseBucketName> --recursive --region us-east-1aws cloudformation delete-stack --stack-name cloudlingo --region us-east-1
+aws s3 rm s3://<ResponseBucketName> --recursive --region us-east-1
+aws cloudformation delete-stack --stack-name cloudlingo --region us-east-1
 
 💡 Next Steps
 
 Add a simple web UI for uploads (S3 static site + API Gateway).
+
 Batch process multiple files via SQS.
+
 Tag S3 objects with language codes for easy filtering.
