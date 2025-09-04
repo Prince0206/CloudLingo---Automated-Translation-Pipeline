@@ -1,0 +1,16 @@
+{
+    "sourceLanguageCode": "en", 
+    "targetLanguageCode": "fr", 
+    "texts": [
+        "Hello, AzubiAfrica!", 
+        "I present to you my project and I believe I couldn't have done it without your intelligent instructors Thank you."
+    ], 
+    "translations": [
+        "Bonjour, AzubiAfrica !", 
+        "Je vous présente mon projet et je pense que je n'aurais pas pu le réaliser sans vos instructeurs intelligents Merci."
+    ], 
+    "metadata": {
+        "requestId": "demo-001"
+    }, 
+    "timestamp": 1756944666
+}

@@ -1,0 +1,89 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudLingo - S3 buckets + IAM role for Lambda and Translate
+
+Parameters:
+  ProjectName:
+    Type: String
+    Default: cloudlingo
+  BucketBaseName:
+    Type: String
+    Description: Globally-unique bucket prefix (e.g., cloudlingo-prince-2025)
+  LifecycleTransitionDays:
+    Type: Number
+    Default: 30
+  LifecycleExpireDays:
+    Type: Number
+    Default: 180
+
+Resources:
+  RequestBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${BucketBaseName}-request"
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: ExpireOldRequests
+            Status: Enabled
+            ExpirationInDays: 30   # ✅ Correct syntax
+            Prefix: ""             # Optional: apply to all objects
+
+  ResponseBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${BucketBaseName}-response"
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: ExpireOldResponses
+            Status: Enabled
+            ExpirationInDays: 30   # ✅ Correct syntax
+            Prefix: ""             # Optional: apply to all objects
+
+
+
+  CloudLingoLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "${ProjectName}-lambda-role"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: !Sub "${ProjectName}-policy"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: translate:TranslateText
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:ListBucket
+                Resource:
+                  - Fn::Sub: "arn:aws:s3:::${BucketBaseName}-request"
+                  - Fn::Sub: "arn:aws:s3:::${BucketBaseName}-request/*"
+                  - Fn::Sub: "arn:aws:s3:::${BucketBaseName}-response"
+                  - Fn::Sub: "arn:aws:s3:::${BucketBaseName}-response/*"
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: "*"
+
+Outputs:
+  RequestBucketName:
+    Value: !Ref RequestBucket
+  ResponseBucketName:
+    Value: !Ref ResponseBucket
+  LambdaRoleArn:
+    Value: !GetAtt [CloudLingoLambdaRole, Arn]
