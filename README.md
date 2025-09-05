@@ -154,6 +154,10 @@ aws s3 rm s3://<ResponseBucketName> --recursive --region us-east-1
 
 aws cloudformation delete-stack --stack-name cloudlingo --region us-east-1
 
+## **🧹 Report**
+
+[text](<CloudLingo_A Serverless, Automated Translation Pipeline on AWS.pdf>)
+
 ## **💡 Next Steps**
 
 Add a simple web UI for uploads (S3 static site + API Gateway).
