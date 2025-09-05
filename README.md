@@ -156,7 +156,7 @@ aws cloudformation delete-stack --stack-name cloudlingo --region us-east-1
 
 ## **🧹 Report**
 
-[text](<CloudLingo_A Serverless, Automated Translation Pipeline on AWS.pdf>)
+[CloudLingo_A Serverless, Automated Translation Pipeline on AWS.pdf](<CloudLingo_A Serverless, Automated Translation Pipeline on AWS.pdf>)
 
 ## **💡 Next Steps**
 
