@@ -6,7 +6,7 @@
 
 **Description**: An automated translation pipeline using AWS S3, Lambda, and Amazon Translate. Upload a JSON file to the request bucket, and get a translated JSON in the response bucket no manual intervention.
 
-#### 📌 **Features**
+## 📌 **Features**
 
 **Serverless**: Fully managed with AWS Lambda and S3 triggers.
 
@@ -16,7 +16,7 @@
 
 **Versioned \& Managed**: S3 versioning and lifecycle rules for cost optimization.
 
-#### **🛠 Architecture Overview**
+## **🛠 Architecture Overview**
 
 Code
 
@@ -35,23 +35,23 @@ Code
 
 \[Response S3 Bucket] <---------------------------------- Translated JSON
 
-#### 📊 **AWS‑Icon Architecture Diagram**
+## 📊 **AWS‑Icon Architecture Diagram**
 
 ![alt text](architecture.drawio.png)
 
-#### **💻 Tech Stack**
+## **💻 Tech Stack**
 
-**!\[AWS S3]**(Link)
+**!\[AWS S3]** (Link)
 
-**!\[AWS Lambda](**Link)
+**!\[AWS Lambda]** (Link)
 
-**!\[Amazon Translate](**Link)
+**!\[Amazon Translate]** (Link)
 
-**!\[Python](**Link)
+**!\[Python]** (Link)
 
-**!\[CloudFormation](**Link)
+**!\[CloudFormation]** (Link)
 
-#### **🚀 Quick Start (Cheat Sheet)**
+## **🚀 Quick Start (Cheat Sheet)**
 
 1\. **Deploy Infrastructure**
 bash
@@ -80,7 +80,7 @@ aws cloudformation describe-stacks \\
 
 &nbsp; --query "Stacks\[0].Outputs"
 
-#### **📂 Project Structure**
+## **📂 Project Structure**
 
 Code
 
@@ -100,7 +100,7 @@ Code
 
 └── README.md # This file
 
-#### **🧪 Local Testing (Optional)**
+## **🧪 Local Testing (Optional)**
 
 **1. Create a request JSON**
 json
@@ -127,14 +127,14 @@ aws s3 ls s3://<ResponseBucketName>/translated/ --region us-east-1
 
 aws s3 cp s3://<ResponseBucketName>/translated/request_en_fr_to_fr.json . --region us-east-1
 
-#### **⚡ Automated Lambda Flow**
+## **⚡ Automated Lambda Flow**
 
 1.Upload JSON to Request Bucket (prefix: inbox/ if configured).
 2.S3 event triggers Lambda.
 3.Lambda calls Amazon Translate.
 4.Output JSON saved to Response Bucket.
 
-#### **🛠 Debugging**
+## **🛠 Debugging**
 
 AWS Console → CloudWatch Logs → /aws/lambda/cloudlingo-translate
 
@@ -144,7 +144,7 @@ Permission errors
 Wrong bucket names
 Missing prefixes
 
-#### **🧹 Cleanup**
+## **🧹 Cleanup**
 
 bash
 
@@ -154,7 +154,7 @@ aws s3 rm s3://<ResponseBucketName> --recursive --region us-east-1
 
 aws cloudformation delete-stack --stack-name cloudlingo --region us-east-1
 
-#### **💡 Next Steps**
+## **💡 Next Steps**
 
 Add a simple web UI for uploads (S3 static site + API Gateway).
 
